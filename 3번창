@@ -1,0 +1,47 @@
+let userType = '';
+let goal = '';
+let time = '';
+let subject = '';
+
+function goToStep2(type) {
+    userType = type;
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('step2').style.display = 'block';
+}
+
+function generatePlan() {
+    goal = document.getElementById('goal').value;
+    time = document.getElementById('time').value;
+    subject = document.getElementById('subject').value;
+
+    if (!goal || !time || !subject) {
+        alert("모든 항목을 입력해주세요!");
+        return;
+    }
+
+    let planText = `<h3>학습 목표: ${goal}</h3><h3>과목: ${subject}</h3><h3>학습 시간: ${time}시간</h3><h4>추천 학습 계획:</h4>`;
+
+    if (userType === 'visual') {
+        planText += `<p>시각적 자료(도표, 차트 등)를 활용해 학습하세요. 시간은 이론 학습 60%, 복습 40%로 분배하세요.</p>`;
+    } else if (userType === 'auditory') {
+        planText += `<p>강의나 오디오북을 활용하여 학습하세요. 시간을 강의 듣기 50%, 노트 정리 50%로 분배하세요.</p>`;
+    } else if (userType === 'kinesthetic') {
+        planText += `<p>손으로 실습하고 활동적으로 학습하세요. 학습 시간을 실습 70%, 이론 30%로 나누세요.</p>`;
+    } else if (userType === 'introvert') {
+        planText += `<p>혼자서 집중하여 학습하세요. 시간을 집중 학습 80%, 쉬는 시간 20%로 배분하세요.</p>`;
+    } else if (userType === 'social') {
+        planText += `<p>그룹 학습과 토론을 활용하여 학습하세요. 시간을 토론 및 그룹 공부 60%, 개인 공부 40%로 분배하세요.</p>`;
+    }
+
+    document.getElementById('plan').innerHTML = planText;
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('step3').style.display = 'block';
+}
+
+function reset() {
+    document.getElementById('step1').style.display = 'block';
+    document.getElementById('step3').style.display = 'none';
+    document.getElementById('goal').value = '';
+    document.getElementById('time').value = '';
+    document.getElementById('subject').value = '';
+}
